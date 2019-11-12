@@ -29,3 +29,10 @@ input {
   padding: 15px 20px;
   width: 250px;
 }
+.done {
+  color: rgb(25, 109, 17);
+  text-decoration: line-through;
+}
+.undone {
+  color: rgb(18, 29, 133);
+}
