@@ -1,0 +1,31 @@
+body{
+  max-width: 600px;
+  margin: 40px auto 0;
+}
+.App {
+  text-align: center;
+  width: 440px;
+}
+.enterTask {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.task {
+  display: block;
+  border: 1px solid rgb(8, 3, 3);
+  margin: 10px;
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+.btn {
+  padding: 5px 30px;
+  height: 50px;
+  margin: 15px 0 0 38px;
+}
+input {
+  padding: 15px 20px;
+  width: 250px;
+}
