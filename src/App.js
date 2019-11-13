@@ -21,11 +21,11 @@ class App extends Component {
       {id: this.generateId(), description: 'Walk with the dog', done: false},
       {id: this.generateId(), description: 'Do homework', done: false},
       {id: this.generateId(), description: 'Buy butter', done: false},
-      {id: this.generateId(), description: 'Wash the dog', done: false}
+      {id: this.generateId(), description: 'Wash the dog', done: true}
     ]
   };
   
-  removeTask = (id) => {
+  removeTask = id => {
 
     const index = this.state.tasks.findIndex(p => p.id === id);
     const tasks = [...this.state.tasks];
@@ -34,7 +34,8 @@ class App extends Component {
     this.setState({tasks});
   };
 
-  markTodoDone(index) {
+  doneTask = id => {
+    const index = this.state.tasks.findIndex(p => p.id === id);
     const tasks = [...this.state.tasks];
     tasks.splice(index, 1);
     let task = this.state.tasks[index];
@@ -42,35 +43,25 @@ class App extends Component {
     tasks.done = !tasks.done;
     tasks.done ? tasks.push(task) : tasks.unshift(task);
     this.setState({tasks});  
-  }
-
-  doneTask = (id) => {
-
-    const index = this.state.tasks.findIndex(p => p.id === id);
-    this.markTodoDone(index);
-    // const tasks = [...this.state.tasks];
-    // tasks.splice(index, 1);
-    
-    // this.setState({tasks});
   };
 
-  onChange = (event) => {
+  onChange = event => {
     this.currentTask = {id: this.generateId(), description: event.target.value, done: false};
   };
 
-  onSubmit = (event) => {
+  onSubmit = event => {
     event.preventDefault();
 
     this.setState(prevState => ({
       tasks: [...prevState.tasks, this.currentTask]
     }))
-  }
+  };
   
   render() {
     
     let tasks = null;
     let todoClass = this.state.tasks.done ? "done" : "undone";
-    
+
     tasks = (
       
       <div> 
