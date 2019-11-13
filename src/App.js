@@ -8,7 +8,6 @@ import {faTrashAlt, faCheck} from '../node_modules/@fortawesome/fontawesome-free
 class App extends Component {
   
   count = 0;
-  currentTask = null;
   
   generateId = () => {
     this.count++
@@ -20,9 +19,10 @@ class App extends Component {
       {id: this.generateId(), description: 'Buy milk', done: false},
       {id: this.generateId(), description: 'Walk with the dog', done: false},
       {id: this.generateId(), description: 'Do homework', done: false},
-      {id: this.generateId(), description: 'Buy butter', done: false},
+      {id: this.generateId(), description: 'Buy butter', done: true},
       {id: this.generateId(), description: 'Wash the dog', done: true}
-    ]
+    ],
+    taskNew: ''
   };
   
   removeTask = id => {
@@ -38,7 +38,7 @@ class App extends Component {
     const index = this.state.tasks.findIndex(p => p.id === id);
     const tasks = [...this.state.tasks];
     tasks.splice(index, 1);
-    let task = this.state.tasks[index];
+    let task = {id: this.state.tasks[index].id, description: this.state.tasks[index].description, done: true};
 
     tasks.done = !tasks.done;
     tasks.done ? tasks.push(task) : tasks.unshift(task);
@@ -46,21 +46,20 @@ class App extends Component {
   };
 
   onChange = event => {
-    this.currentTask = {id: this.generateId(), description: event.target.value, done: false};
+    this.state.taskNew = {id: this.generateId(), description: event.target.value, done: false};
   };
 
   onSubmit = event => {
     event.preventDefault();
 
     this.setState(prevState => ({
-      tasks: [...prevState.tasks, this.currentTask]
+      tasks: [this.state.taskNew, ...prevState.tasks]
     }))
   };
   
   render() {
     
     let tasks = null;
-    let todoClass = this.state.tasks.done ? "done" : "undone";
 
     tasks = (
       
@@ -69,7 +68,7 @@ class App extends Component {
         this.state.tasks.map((task) => {
           
           return (
-            <div className={todoClass}>
+            <div className={task.done ? 'done' : 'undone'} key={task.id}>
               <Task
                 key={task.id}
                 description={task.description}
